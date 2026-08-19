@@ -88,3 +88,8 @@ body{background:#e9eaec}.site-header{background:rgba(242,243,241,.94)}.light-sec
 @media (max-width:560px){.hero h1 .cn{font-size:64px;line-height:1;letter-spacing:.015em}.hero h1 .latin{font-size:clamp(42px,12vw,48px);line-height:1;margin-top:.38em}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition-duration:.01ms!important}.reveal-item,[data-reveal]{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.opening-sequence{display:none}}
+
+/* Signature leads the hero; the Chinese name anchors it below. */
+.hero h1 .latin{margin-top:0;padding-top:.12em;padding-bottom:.1em}
+.hero h1 .cn{margin-top:.14em}
+@media (max-width:560px){.hero h1 .latin{margin-top:0;padding-top:.14em;padding-bottom:.08em}.hero h1 .cn{margin-top:.16em}}

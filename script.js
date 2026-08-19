@@ -94,12 +94,13 @@ mediaPreviewButtons.forEach((button) => {
     const media = document.createElement(type === 'video' ? 'video' : 'img');
 
     if (media instanceof HTMLVideoElement) {
+      const shouldMute = button.dataset.previewMuted !== 'false';
       media.controls = true;
       media.autoplay = true;
-      media.muted = true;
-      media.defaultMuted = true;
+      media.muted = shouldMute;
+      media.defaultMuted = shouldMute;
       media.playsInline = true;
-      media.setAttribute('aria-label', `${title}静音视频预览`);
+      media.setAttribute('aria-label', `${title}视频预览`);
     } else {
       media.alt = title;
     }
