@@ -74,5 +74,11 @@ body{background:#e9eaec}.site-header{background:rgba(242,243,241,.94)}.light-sec
 @media (any-pointer:fine) and (prefers-reduced-motion:no-preference){.light-section:before{transition:transform .22s cubic-bezier(.2,.8,.2,1)}}
 @media (max-width:560px){.light-section:before{inset:-10vw;background-size:300px 214px;opacity:.7}}
 @media (prefers-reduced-motion:reduce){.light-section:before{transform:scale(1.03)}}
+
+/* Keep every H.J.L glyph inside the intro reveal mask */
+.opening-title strong{width:max-content;max-width:100%;margin:22px auto 0;padding:.12em .1em .2em;line-height:.9;overflow:visible;clip-path:inset(-38% 110% -46% -14%);-webkit-text-stroke:clamp(1px,.11vw,1.8px) rgba(7,7,7,.9);paint-order:stroke fill;filter:drop-shadow(0 9px 16px rgba(0,0,0,.58))}
+@keyframes title-write{from{clip-path:inset(-38% 110% -46% -14%)}to{clip-path:inset(-38% -14% -46% -14%)}}
+@keyframes text-glow{0%{text-shadow:0 2px 0 #080808,0 0 8px rgba(0,0,0,.65)}50%{color:#f1d99e;text-shadow:0 2px 0 #080808,0 0 42px rgba(217,173,89,.35)}100%{text-shadow:0 2px 0 #080808,0 0 16px rgba(217,173,89,.16)}}
+@media (max-width:560px){.opening-title strong{padding:.16em .12em .24em;line-height:.94;-webkit-text-stroke:1px rgba(7,7,7,.92)}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition-duration:.01ms!important}.reveal-item,[data-reveal]{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.opening-sequence{display:none}}
