@@ -14,13 +14,13 @@ const referencedAssets = new Set();
 for (const match of html.matchAll(assetPattern)) {
   const reference = match[1];
   if (/^(?:https?:|mailto:|#)/.test(reference)) continue;
-  referencedAssets.add(reference);
+  referencedAssets.add(reference.split(/[?#]/, 1)[0]);
 }
 
 for (const match of css.matchAll(/url\(\s*(['"]?)([^'"\)]+)\1\s*\)/g)) {
   const reference = match[2];
   if (/^(?:https?:|data:|#)/.test(reference)) continue;
-  referencedAssets.add(reference);
+  referencedAssets.add(reference.split(/[?#]/, 1)[0]);
 }
 
 const files = [...new Set([...rootFiles, ...referencedAssets])];
