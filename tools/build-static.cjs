@@ -5,6 +5,7 @@ const root = path.resolve(__dirname, '..');
 const output = path.join(root, 'dist');
 const htmlPath = path.join(root, 'index.html');
 const html = fs.readFileSync(htmlPath, 'utf8');
+const css = fs.readFileSync(path.join(root, 'styles.css'), 'utf8');
 
 const rootFiles = ['index.html', 'styles.css', 'script.js'];
 const assetPattern = /(?:src|href|data-preview-src)="([^"]+)"/g;
@@ -13,6 +14,12 @@ const referencedAssets = new Set();
 for (const match of html.matchAll(assetPattern)) {
   const reference = match[1];
   if (/^(?:https?:|mailto:|#)/.test(reference)) continue;
+  referencedAssets.add(reference);
+}
+
+for (const match of css.matchAll(/url\(\s*(['"]?)([^'"\)]+)\1\s*\)/g)) {
+  const reference = match[2];
+  if (/^(?:https?:|data:|#)/.test(reference)) continue;
   referencedAssets.add(reference);
 }
 
