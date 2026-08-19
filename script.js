@@ -173,6 +173,10 @@ if (!reduceMotion.matches) {
     rootStyle.setProperty('--canvas-x-soft', `${normalizedX * 28}px`);
     rootStyle.setProperty('--canvas-y-soft', `${normalizedY * 10}px`);
     rootStyle.setProperty('--canvas-x-reverse', `${normalizedX * -40}px`);
+    rootStyle.setProperty('--space-x', `${normalizedX * 36}px`);
+    rootStyle.setProperty('--space-y', `${normalizedY * 14}px`);
+    rootStyle.setProperty('--space-x-soft', `${normalizedX * 18}px`);
+    rootStyle.setProperty('--space-y-soft', `${normalizedY * 7}px`);
     pointerFrame = 0;
   };
 

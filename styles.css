@@ -51,7 +51,7 @@
 @media (prefers-reduced-motion:reduce){.opening-sequence{display:none!important}[data-reveal],.reveal-item{opacity:1;transform:none;transition:none}}
 
 /* Pointer-driven oversized background canvas */
-html{--canvas-x:0px;--canvas-y:0px;--canvas-x-soft:0px;--canvas-y-soft:0px;--canvas-x-reverse:0px}
+html{--canvas-x:0px;--canvas-y:0px;--canvas-x-soft:0px;--canvas-y-soft:0px;--canvas-x-reverse:0px;--space-x:0px;--space-y:0px;--space-x-soft:0px;--space-y-soft:0px}
 .dark-section,.work.dark-section{background-size:112% 112%,112% 112%,28vw 112%,112% 250px;background-position:calc(50% + var(--canvas-x)) calc(50% + var(--canvas-y)),calc(50% + var(--canvas-x-reverse)) calc(50% + var(--canvas-y-soft)),var(--canvas-x-soft) var(--canvas-y-soft),var(--canvas-x-reverse) var(--canvas-y-soft)}
 .light-section{background-size:112% 112%,112% 112%,28vw 112%,112% 250px,112% 112%,112% 112%;background-position:calc(50% + var(--canvas-x)) calc(50% + var(--canvas-y)),calc(50% + var(--canvas-x-reverse)) calc(50% + var(--canvas-y-soft)),var(--canvas-x-soft) var(--canvas-y-soft),var(--canvas-x-reverse) var(--canvas-y-soft),calc(50% + var(--canvas-x-soft)) calc(50% + var(--canvas-y-soft)),calc(50% + var(--canvas-x-reverse)) calc(50% + var(--canvas-y))}
 .dark-section:before{inset:-5vw;transform:translate3d(var(--canvas-x-soft),var(--canvas-y-soft),0) scale(1.07);will-change:transform}
@@ -278,3 +278,10 @@ body{background:#e9eaec}.site-header{background:rgba(242,243,241,.94)}.light-sec
 @keyframes archive-comet-drift{0%,100%{translate:18px -10px;opacity:var(--meteor-dim)}38%,68%{translate:0 0;opacity:var(--meteor-peak)}}
 @media (max-width:560px){.archive-theme .intro,.archive-theme .skills{background-size:100% 100%,190% 130%,180% 140%,210% 150%}.archive-theme .meteor-field i{--meteor-peak:.16;width:220px}.archive-theme .meteor-field i:nth-child(2){--meteor-peak:.1}.archive-theme .meteor-field i:nth-child(3){display:none}}
 @media (prefers-reduced-motion:reduce){.archive-theme .meteor-field i{animation:none;opacity:.12}}
+
+/* Keep every cosmic layer on one coherent pointer-parallax axis. */
+.archive-theme .dark-section:before,.archive-theme .light-section:before{transform:translate3d(var(--space-x-soft),var(--space-y-soft),0) scale(1.07);transition:transform .16s cubic-bezier(.2,.7,.2,1)}
+.archive-theme .intro,.archive-theme .skills{background-position:0 0,calc(72% + var(--space-x-soft)) calc(30% + var(--space-y-soft)),calc(54% + var(--space-x)) calc(78% + var(--space-y)),calc(70% + var(--space-x-soft)) calc(48% + var(--space-y-soft));transition:background-position .16s cubic-bezier(.2,.7,.2,1)}
+.archive-theme .hero:after,.archive-theme .experience:after,.archive-theme .intro:after,.archive-theme .skills:after{background-position:calc(17px + var(--space-x-soft)) calc(23px + var(--space-y-soft)),calc(91px + var(--space-x)) calc(41px + var(--space-y)),calc(173px + var(--space-x-soft)) calc(67px + var(--space-y-soft)),0 0;transition:background-position .16s cubic-bezier(.2,.7,.2,1)}
+.archive-theme .meteor-field{transform:translate3d(var(--space-x-soft),var(--space-y-soft),0) scale(1.03);transition:transform .16s cubic-bezier(.2,.7,.2,1)}
+@media (prefers-reduced-motion:reduce){.archive-theme .dark-section:before,.archive-theme .light-section:before,.archive-theme .meteor-field{transform:none}.archive-theme .intro,.archive-theme .skills,.archive-theme .hero:after,.archive-theme .experience:after,.archive-theme .intro:after,.archive-theme .skills:after{background-position:initial}}
