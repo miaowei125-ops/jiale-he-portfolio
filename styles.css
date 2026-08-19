@@ -56,7 +56,10 @@ html{--canvas-x:0px;--canvas-y:0px;--canvas-x-soft:0px;--canvas-y-soft:0px;--can
 .light-section{background-size:112% 112%,112% 112%,28vw 112%,112% 250px,112% 112%,112% 112%;background-position:calc(50% + var(--canvas-x)) calc(50% + var(--canvas-y)),calc(50% + var(--canvas-x-reverse)) calc(50% + var(--canvas-y-soft)),var(--canvas-x-soft) var(--canvas-y-soft),var(--canvas-x-reverse) var(--canvas-y-soft),calc(50% + var(--canvas-x-soft)) calc(50% + var(--canvas-y-soft)),calc(50% + var(--canvas-x-reverse)) calc(50% + var(--canvas-y))}
 .dark-section:before{inset:-5vw;transform:translate3d(var(--canvas-x-soft),var(--canvas-y-soft),0) scale(1.07);will-change:transform}
 
-@media (pointer:fine) and (prefers-reduced-motion:no-preference){.dark-section,.work.dark-section,.light-section{transition:background-position .2s cubic-bezier(.2,.8,.2,1)}.dark-section:before{transition:transform .24s cubic-bezier(.2,.8,.2,1)}}
-@media (pointer:coarse),(prefers-reduced-motion:reduce){.dark-section,.work.dark-section,.light-section{background-position:center}.dark-section:before{transform:scale(1.04)}}
+@media (any-pointer:fine) and (prefers-reduced-motion:no-preference){.dark-section,.work.dark-section,.light-section{transition:background-position .14s cubic-bezier(.2,.8,.2,1)}.dark-section:before{transition:transform .18s cubic-bezier(.2,.8,.2,1)}}
+@media (prefers-reduced-motion:reduce){.dark-section,.work.dark-section,.light-section{background-position:center}.dark-section:before{transform:scale(1.04)}}
+
+/* Softer light canvas and matching transition endpoints */
+body{background:#e9eaec}.site-header{background:rgba(242,243,241,.94)}.light-section{background-color:#f1f2f4}.hero:after,.experience:after{background:linear-gradient(to bottom,rgba(11,11,11,0) 0%,rgba(16,22,43,.88) 36%,rgba(52,64,100,.72) 60%,rgba(205,210,222,.88) 82%,#f1f2f4 100%)}.intro:after,.skills:after{background:linear-gradient(to bottom,rgba(241,242,244,0) 0%,rgba(226,228,233,.88) 34%,rgba(105,115,144,.6) 61%,rgba(24,30,50,.9) 82%,#0b0b0b 100%)}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition-duration:.01ms!important}.reveal-item,[data-reveal]{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.opening-sequence{display:none}}

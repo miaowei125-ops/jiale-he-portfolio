@@ -156,10 +156,9 @@ wechatCopyButton?.addEventListener('click', async () => {
   }, 2600);
 });
 
-const finePointer = matchMedia('(pointer: fine)');
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
 
-if (finePointer.matches && !reduceMotion.matches) {
+if (!reduceMotion.matches) {
   const rootStyle = document.documentElement.style;
   let pointerFrame = 0;
   let pointerX = innerWidth / 2;
@@ -168,15 +167,15 @@ if (finePointer.matches && !reduceMotion.matches) {
   const renderBackgroundCanvas = () => {
     const normalizedX = (pointerX / innerWidth - 0.5) * 2;
     const normalizedY = (pointerY / innerHeight - 0.5) * 2;
-    rootStyle.setProperty('--canvas-x', `${normalizedX * 34}px`);
-    rootStyle.setProperty('--canvas-y', `${normalizedY * 14}px`);
-    rootStyle.setProperty('--canvas-x-soft', `${normalizedX * 15}px`);
-    rootStyle.setProperty('--canvas-y-soft', `${normalizedY * 7}px`);
-    rootStyle.setProperty('--canvas-x-reverse', `${normalizedX * -21}px`);
+    rootStyle.setProperty('--canvas-x', `${normalizedX * 58}px`);
+    rootStyle.setProperty('--canvas-y', `${normalizedY * 20}px`);
+    rootStyle.setProperty('--canvas-x-soft', `${normalizedX * 28}px`);
+    rootStyle.setProperty('--canvas-y-soft', `${normalizedY * 10}px`);
+    rootStyle.setProperty('--canvas-x-reverse', `${normalizedX * -40}px`);
     pointerFrame = 0;
   };
 
-  addEventListener('pointermove', (event) => {
+  addEventListener('mousemove', (event) => {
     pointerX = event.clientX;
     pointerY = event.clientY;
     if (!pointerFrame) pointerFrame = requestAnimationFrame(renderBackgroundCanvas);
