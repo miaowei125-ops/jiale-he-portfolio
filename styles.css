@@ -49,5 +49,14 @@
 
 @media (max-width:560px){.intro,.skills{padding-bottom:calc(72px + 150px)}.intro:after,.skills:after{height:150px}.intro-grid>h2,.experience-head>h2,.skills h2,.work-heading h2,.contact-main h2{line-height:1.18;letter-spacing:.02em}}
 @media (prefers-reduced-motion:reduce){.opening-sequence{display:none!important}[data-reveal],.reveal-item{opacity:1;transform:none;transition:none}}
+
+/* Pointer-driven oversized background canvas */
+html{--canvas-x:0px;--canvas-y:0px;--canvas-x-soft:0px;--canvas-y-soft:0px;--canvas-x-reverse:0px}
+.dark-section,.work.dark-section{background-size:112% 112%,112% 112%,28vw 112%,112% 250px;background-position:calc(50% + var(--canvas-x)) calc(50% + var(--canvas-y)),calc(50% + var(--canvas-x-reverse)) calc(50% + var(--canvas-y-soft)),var(--canvas-x-soft) var(--canvas-y-soft),var(--canvas-x-reverse) var(--canvas-y-soft)}
+.light-section{background-size:112% 112%,112% 112%,28vw 112%,112% 250px,112% 112%,112% 112%;background-position:calc(50% + var(--canvas-x)) calc(50% + var(--canvas-y)),calc(50% + var(--canvas-x-reverse)) calc(50% + var(--canvas-y-soft)),var(--canvas-x-soft) var(--canvas-y-soft),var(--canvas-x-reverse) var(--canvas-y-soft),calc(50% + var(--canvas-x-soft)) calc(50% + var(--canvas-y-soft)),calc(50% + var(--canvas-x-reverse)) calc(50% + var(--canvas-y))}
+.dark-section:before{inset:-5vw;transform:translate3d(var(--canvas-x-soft),var(--canvas-y-soft),0) scale(1.07);will-change:transform}
+
+@media (pointer:fine) and (prefers-reduced-motion:no-preference){.dark-section,.work.dark-section,.light-section{transition:background-position .2s cubic-bezier(.2,.8,.2,1)}.dark-section:before{transition:transform .24s cubic-bezier(.2,.8,.2,1)}}
+@media (pointer:coarse),(prefers-reduced-motion:reduce){.dark-section,.work.dark-section,.light-section{background-position:center}.dark-section:before{transform:scale(1.04)}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition-duration:.01ms!important}.reveal-item,[data-reveal]{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.opening-sequence{display:none}}

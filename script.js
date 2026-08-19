@@ -155,3 +155,36 @@ wechatCopyButton?.addEventListener('click', async () => {
     if (contactFeedback) contactFeedback.textContent = '';
   }, 2600);
 });
+
+const finePointer = matchMedia('(pointer: fine)');
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+
+if (finePointer.matches && !reduceMotion.matches) {
+  const rootStyle = document.documentElement.style;
+  let pointerFrame = 0;
+  let pointerX = innerWidth / 2;
+  let pointerY = innerHeight / 2;
+
+  const renderBackgroundCanvas = () => {
+    const normalizedX = (pointerX / innerWidth - 0.5) * 2;
+    const normalizedY = (pointerY / innerHeight - 0.5) * 2;
+    rootStyle.setProperty('--canvas-x', `${normalizedX * 34}px`);
+    rootStyle.setProperty('--canvas-y', `${normalizedY * 14}px`);
+    rootStyle.setProperty('--canvas-x-soft', `${normalizedX * 15}px`);
+    rootStyle.setProperty('--canvas-y-soft', `${normalizedY * 7}px`);
+    rootStyle.setProperty('--canvas-x-reverse', `${normalizedX * -21}px`);
+    pointerFrame = 0;
+  };
+
+  addEventListener('pointermove', (event) => {
+    pointerX = event.clientX;
+    pointerY = event.clientY;
+    if (!pointerFrame) pointerFrame = requestAnimationFrame(renderBackgroundCanvas);
+  }, { passive: true });
+
+  document.documentElement.addEventListener('mouseleave', () => {
+    pointerX = innerWidth / 2;
+    pointerY = innerHeight / 2;
+    if (!pointerFrame) pointerFrame = requestAnimationFrame(renderBackgroundCanvas);
+  });
+}
