@@ -130,3 +130,23 @@ body{background:#e9eaec}.site-header{background:rgba(242,243,241,.94)}.light-sec
 .hero-statement:after{right:clamp(10px,2vw,28px);transform:scaleX(-1)}
 @media (max-width:850px){.hero h1{transform:none;padding:0}.hero-statement{width:100%;padding:0 clamp(44px,13vw,82px)}}
 @media (max-width:560px){.hero h1{margin-top:92px}.hero h1 .latin{font-size:clamp(45px,14vw,56px);line-height:.92;padding-bottom:.1em}.hero h1 .cn{font-size:clamp(66px,20vw,78px);margin-top:.16em;line-height:.94}.hero-statement{bottom:245px;padding:0 43px;font-size:17px;line-height:1.42}.hero-statement:before,.hero-statement:after{top:12px;width:28px}.hero-statement:before{left:5px}.hero-statement:after{right:5px}}
+
+/* Visual-system consolidation: calmer supporting UI, one gold accent language. */
+.intro-grid>h2,.experience-head>h2,.skills h2,.work-heading h2,.contact-main h2,.hero h1 .cn{font-family:"Noto Serif SC","Songti SC",STSong,SimSun,serif}
+@media (min-width:851px){.identity-panel{justify-self:end;width:min(100%,390px);height:370px;margin-left:clamp(20px,3vw,46px);opacity:.74;filter:saturate(.72);transform:scale(.92);transform-origin:center right}.identity-panel:hover{opacity:.9;filter:saturate(.9)}.identity-panel .panel-head,.identity-panel .panel-foot,.identity-panel .orbit-label{opacity:.7}}
+.experience.dark-section:before,.work.dark-section:before,.contact.dark-section:before{opacity:.3}
+.light-section:before{opacity:.34}
+.light-section h2{text-shadow:0 7px 20px rgba(47,55,78,.065)}
+.dark-section:not(.hero) h2{text-shadow:0 10px 25px rgba(0,0,0,.36)}
+.timeline-tags span,.timeline-entry:nth-child(2) .timeline-tags span,.timeline-entry:nth-child(3) .timeline-tags span,.timeline-entry.current .timeline-tags span{border-color:rgba(217,173,89,.34);background:linear-gradient(180deg,rgba(141,104,37,.16),rgba(48,35,16,.28));color:#d8b66f}
+.work-category{grid-column:1/-1;display:flex;align-items:end;justify-content:space-between;padding:20px 0 14px;border-bottom:1px solid #343434;color:#fff}
+.work-category span{font:500 9px/1 Inter,sans-serif;letter-spacing:.16em;color:#7d7d7d}
+.work-category strong{font:600 16px/1 "Noto Serif SC","Songti SC",serif;letter-spacing:.08em}
+@media (min-width:851px){.case-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.case-video{grid-column:auto}.case-video .case-visual,.case-visual{height:300px}.practice-collection{grid-column:1/-1;grid-template-rows:270px auto}.practice-grid{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:1fr}.practice-collection .case-caption{min-height:118px}}
+@media (max-width:850px){.work-category{padding-top:26px}.practice-collection{grid-column:auto}}
+@media (max-width:560px){.identity-panel{opacity:.86;filter:saturate(.8)}.experience.dark-section:before,.work.dark-section:before,.contact.dark-section:before{opacity:.24}.light-section:before{opacity:.26}.work-category strong{font-size:14px}}
+
+/* Shorter section hand-offs keep the long page moving without hard cuts. */
+.hero{padding-bottom:260px}.experience{padding-bottom:calc(clamp(76px,10vw,150px) + 260px)}.intro,.skills{padding-bottom:calc(clamp(76px,10vw,150px) + 260px)}
+.hero:after,.experience:after,.intro:after,.skills:after{height:260px}
+@media (max-width:560px){.hero{padding-bottom:205px}.experience,.intro,.skills{padding-bottom:calc(72px + 205px)}.hero:after,.experience:after,.intro:after,.skills:after{height:205px}}
