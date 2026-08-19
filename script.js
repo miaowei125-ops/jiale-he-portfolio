@@ -121,3 +121,37 @@ mediaViewer?.addEventListener('click', (event) => {
 addEventListener('keydown', (event) => {
   if (event.key === 'Escape') closeMediaViewer();
 });
+
+const wechatCopyButton = document.querySelector('.wechat-copy');
+const wechatCopyLabel = wechatCopyButton?.querySelector('[data-wechat-label]');
+const contactFeedback = document.querySelector('.contact-feedback');
+let wechatFeedbackTimer;
+
+wechatCopyButton?.addEventListener('click', async () => {
+  const wechatId = wechatCopyButton.dataset.wechat;
+  if (!wechatId) return;
+
+  try {
+    await navigator.clipboard.writeText(wechatId);
+  } catch {
+    const temporaryInput = document.createElement('textarea');
+    temporaryInput.value = wechatId;
+    temporaryInput.setAttribute('readonly', '');
+    temporaryInput.style.position = 'fixed';
+    temporaryInput.style.opacity = '0';
+    document.body.append(temporaryInput);
+    temporaryInput.select();
+    document.execCommand('copy');
+    temporaryInput.remove();
+  }
+
+  clearTimeout(wechatFeedbackTimer);
+  wechatCopyButton.classList.add('is-copied');
+  if (wechatCopyLabel) wechatCopyLabel.textContent = '已复制微信号';
+  if (contactFeedback) contactFeedback.textContent = '微信号已复制，可以前往微信添加。';
+  wechatFeedbackTimer = setTimeout(() => {
+    wechatCopyButton.classList.remove('is-copied');
+    if (wechatCopyLabel) wechatCopyLabel.textContent = '复制微信号';
+    if (contactFeedback) contactFeedback.textContent = '';
+  }, 2600);
+});
