@@ -1,0 +1,9 @@
+{
+  "name": "jiale-he-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "何嘉乐 Jiale He 的个人作品网站",
+  "scripts": {
+    "build": "node tools/build-static.cjs"
+  }
+}

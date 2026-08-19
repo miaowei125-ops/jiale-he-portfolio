@@ -1,0 +1,6 @@
+dist/
+.DS_Store
+Thumbs.db
+*.log
+web-motion-screenshot-*.png
+assets/works/videos/jimeng-*.mp4
