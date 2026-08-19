@@ -61,5 +61,12 @@ html{--canvas-x:0px;--canvas-y:0px;--canvas-x-soft:0px;--canvas-y-soft:0px;--can
 
 /* Softer light canvas and matching transition endpoints */
 body{background:#e9eaec}.site-header{background:rgba(242,243,241,.94)}.light-section{background-color:#f1f2f4}.hero:after,.experience:after{background:linear-gradient(to bottom,rgba(11,11,11,0) 0%,rgba(16,22,43,.88) 36%,rgba(52,64,100,.72) 60%,rgba(205,210,222,.88) 82%,#f1f2f4 100%)}.intro:after,.skills:after{background:linear-gradient(to bottom,rgba(241,242,244,0) 0%,rgba(226,228,233,.88) 34%,rgba(105,115,144,.6) 61%,rgba(24,30,50,.9) 82%,#0b0b0b 100%)}
+
+/* Longer, layered transitions in both directions */
+.hero{padding-bottom:320px}.experience{padding-bottom:calc(clamp(76px,10vw,150px) + 320px)}.intro,.skills{padding-bottom:calc(clamp(76px,10vw,150px) + 320px)}
+.hero:after,.experience:after{height:320px;background:radial-gradient(ellipse at 50% 43%,rgba(80,97,148,.3) 0%,rgba(52,66,108,.14) 36%,transparent 70%),linear-gradient(to bottom,rgba(11,11,11,0) 0%,rgba(11,13,21,.98) 14%,rgba(17,23,42,.98) 30%,rgba(32,43,75,.94) 47%,rgba(72,87,127,.86) 62%,rgba(126,139,170,.78) 74%,rgba(181,188,207,.84) 85%,rgba(221,224,231,.94) 94%,#f1f2f4 100%)}
+.intro:after,.skills:after{height:320px;background:radial-gradient(ellipse at 50% 58%,rgba(88,104,151,.24) 0%,rgba(44,57,94,.12) 40%,transparent 72%),linear-gradient(to bottom,rgba(241,242,244,0) 0%,rgba(241,242,244,.98) 12%,rgba(230,232,237,.97) 27%,rgba(200,204,215,.94) 43%,rgba(138,148,177,.85) 58%,rgba(75,88,127,.9) 71%,rgba(32,42,69,.96) 83%,rgba(16,20,32,.99) 93%,#0b0b0b 100%)}
+
+@media (max-width:560px){.hero{padding-bottom:240px}.experience,.intro,.skills{padding-bottom:calc(72px + 240px)}.hero:after,.experience:after,.intro:after,.skills:after{height:240px}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition-duration:.01ms!important}.reveal-item,[data-reveal]{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.opening-sequence{display:none}}
