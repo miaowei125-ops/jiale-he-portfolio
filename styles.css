@@ -353,7 +353,7 @@ body{background:#e9eaec}.site-header{background:rgba(242,243,241,.94)}.light-sec
 
 /* Calm standby: stable logo and grid, with only the nebula drifting. */
 .opening-standby{background:#02050d;animation:none!important}
-.opening-standby:before{inset:-12%;z-index:0;background:url("assets/backgrounds/standby-cosmos.png") center/cover no-repeat;opacity:.74;animation:standby-nebula-float 20s cubic-bezier(.42,0,.35,1) infinite alternate;will-change:transform}
-.opening-standby:after{inset:0;z-index:1;height:auto;background:radial-gradient(circle at 50% 48%,rgba(7,30,67,.08),rgba(2,6,15,.32) 46%,rgba(1,4,10,.7) 100%),linear-gradient(90deg,rgba(2,5,13,.34),transparent 45% 55%,rgba(2,5,13,.38));box-shadow:none;animation:none}
+.opening-standby:before{inset:-10%;z-index:0;background:url("assets/backgrounds/standby-cosmos.png") center/cover no-repeat;opacity:.9;filter:brightness(1.18) contrast(1.1) saturate(1.06);animation:standby-nebula-float 20s cubic-bezier(.42,0,.35,1) infinite alternate;will-change:transform}
+.opening-standby:after{inset:0;z-index:1;height:auto;background:radial-gradient(circle at 50% 48%,rgba(8,34,76,.02),rgba(2,8,19,.16) 52%,rgba(1,5,12,.42) 100%),linear-gradient(90deg,rgba(2,5,13,.16),transparent 42% 58%,rgba(2,5,13,.2));box-shadow:none;animation:none}
 .opening-standby strong{animation:none!important;transform:none;filter:none;opacity:1}.standby-noise{display:none}.opening-grid{opacity:.18;animation:none!important}
-@keyframes standby-nebula-float{0%{transform:translate3d(-6%,-3%,0) scale(1.08)}48%{transform:translate3d(1%,2%,0) scale(1.14)}100%{transform:translate3d(6%,-1%,0) scale(1.1)}}
+@keyframes standby-nebula-float{0%{transform:translate3d(-6%,-3%,0) scale(1.035)}48%{transform:translate3d(1%,2%,0) scale(1.07)}100%{transform:translate3d(6%,-1%,0) scale(1.045)}}
