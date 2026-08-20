@@ -7,30 +7,53 @@ if (openingSequence && !matchMedia('(prefers-reduced-motion: reduce)').matches) 
   scrollTo(0, 0);
   document.body.classList.add('intro-playing');
   const openingDuration = 7200;
-  const openingAnimations = openingSequence.getAnimations({ subtree: true });
+  const openingStandby = openingSequence.querySelector('.opening-standby');
+  const standbyAnimations = openingStandby?.getAnimations({ subtree: true }) ?? [];
+  const openingAnimations = openingSequence
+    .getAnimations({ subtree: true })
+    .filter((animation) => !standbyAnimations.includes(animation));
   let openingTarget = 0;
   let openingCurrent = 0;
   let openingFrame = 0;
   let openingTouchY = null;
+  let openingFinished = false;
 
   openingAnimations.forEach((animation) => {
     animation.pause();
     animation.currentTime = 0;
   });
+  standbyAnimations.forEach((animation) => animation.play());
 
   const finishOpening = () => {
+    if (openingFinished) return;
+    openingFinished = true;
+    if (openingFrame) cancelAnimationFrame(openingFrame);
     document.body.classList.remove('intro-playing');
     document.body.classList.remove('intro-scroll');
+    document.body.style.removeProperty('overflow');
+    document.documentElement.style.removeProperty('overflow');
     openingSequence.setAttribute('hidden', '');
     removeEventListener('keydown', handleOpeningKey);
+  };
+
+  const applyOpeningProgress = (value) => {
+    openingAnimations.forEach((animation) => {
+      animation.currentTime = value * openingDuration;
+    });
+    openingSequence.style.setProperty('--opening-standby-opacity', Math.max(0, 1 - value * 8).toFixed(3));
+  };
+
+  const completeOpening = () => {
+    openingTarget = 1;
+    openingCurrent = 1;
+    applyOpeningProgress(1);
+    requestAnimationFrame(finishOpening);
   };
 
   const renderOpening = () => {
     openingCurrent += (openingTarget - openingCurrent) * 0.22;
     if (Math.abs(openingTarget - openingCurrent) < 0.0005) openingCurrent = openingTarget;
-    openingAnimations.forEach((animation) => {
-      animation.currentTime = openingCurrent * openingDuration;
-    });
+    applyOpeningProgress(openingCurrent);
     if (openingTarget === 1 && openingCurrent > 0.995) {
       finishOpening();
       openingFrame = 0;
@@ -48,7 +71,9 @@ if (openingSequence && !matchMedia('(prefers-reduced-motion: reduce)').matches) 
   openingSequence.addEventListener('wheel', (event) => {
     event.preventDefault();
     const delta = event.deltaMode === 1 ? event.deltaY * 18 : event.deltaY;
-    setOpeningTarget(openingTarget + Math.max(-0.14, Math.min(0.14, delta / 1000)));
+    const nextTarget = openingTarget + Math.max(-0.14, Math.min(0.14, delta / 1000));
+    if (delta > 0 && nextTarget >= 0.98) completeOpening();
+    else setOpeningTarget(nextTarget);
   }, { passive: false });
 
   openingSequence.addEventListener('touchstart', (event) => {
@@ -59,14 +84,17 @@ if (openingSequence && !matchMedia('(prefers-reduced-motion: reduce)').matches) 
     if (openingTouchY === null || !event.touches[0]) return;
     event.preventDefault();
     const nextY = event.touches[0].clientY;
-    setOpeningTarget(openingTarget + (openingTouchY - nextY) / 520);
+    const nextTarget = openingTarget + (openingTouchY - nextY) / 520;
+    if (nextTarget >= 0.98) completeOpening();
+    else setOpeningTarget(nextTarget);
     openingTouchY = nextY;
   }, { passive: false });
 
   function handleOpeningKey(event) {
     if (event.key === 'ArrowDown' || event.key === 'PageDown' || event.key === ' ') {
       event.preventDefault();
-      setOpeningTarget(openingTarget + 0.12);
+      if (openingTarget >= 0.88) completeOpening();
+      else setOpeningTarget(openingTarget + 0.12);
     } else if (event.key === 'ArrowUp' || event.key === 'PageUp') {
       event.preventDefault();
       setOpeningTarget(openingTarget - 0.12);
