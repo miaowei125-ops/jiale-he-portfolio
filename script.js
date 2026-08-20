@@ -6,14 +6,79 @@ if (openingSequence && !matchMedia('(prefers-reduced-motion: reduce)').matches) 
   if (location.hash) history.replaceState(null, '', `${location.pathname}${location.search}`);
   scrollTo(0, 0);
   document.body.classList.add('intro-playing');
+  const openingDuration = 7200;
+  const openingAnimations = openingSequence.getAnimations({ subtree: true });
+  let openingTarget = 0;
+  let openingCurrent = 0;
+  let openingFrame = 0;
+  let openingTouchY = null;
+
+  openingAnimations.forEach((animation) => {
+    animation.pause();
+    animation.currentTime = 0;
+  });
+
   const finishOpening = () => {
     document.body.classList.remove('intro-playing');
+    document.body.classList.remove('intro-scroll');
     openingSequence.setAttribute('hidden', '');
+    removeEventListener('keydown', handleOpeningKey);
   };
-  openingSequence.addEventListener('animationend', (event) => {
-    if (event.animationName === 'opening-exit' || event.animationName === 'skip-opening') finishOpening();
+
+  const renderOpening = () => {
+    openingCurrent += (openingTarget - openingCurrent) * 0.22;
+    if (Math.abs(openingTarget - openingCurrent) < 0.0005) openingCurrent = openingTarget;
+    openingAnimations.forEach((animation) => {
+      animation.currentTime = openingCurrent * openingDuration;
+    });
+    if (openingTarget === 1 && openingCurrent > 0.995) {
+      finishOpening();
+      openingFrame = 0;
+      return;
+    }
+    if (openingCurrent !== openingTarget) openingFrame = requestAnimationFrame(renderOpening);
+    else openingFrame = 0;
+  };
+
+  const setOpeningTarget = (nextTarget) => {
+    openingTarget = Math.min(1, Math.max(0, nextTarget));
+    if (!openingFrame) openingFrame = requestAnimationFrame(renderOpening);
+  };
+
+  openingSequence.addEventListener('wheel', (event) => {
+    event.preventDefault();
+    const delta = event.deltaMode === 1 ? event.deltaY * 18 : event.deltaY;
+    setOpeningTarget(openingTarget + Math.max(-0.14, Math.min(0.14, delta / 1000)));
+  }, { passive: false });
+
+  openingSequence.addEventListener('touchstart', (event) => {
+    openingTouchY = event.touches[0]?.clientY ?? null;
+  }, { passive: true });
+
+  openingSequence.addEventListener('touchmove', (event) => {
+    if (openingTouchY === null || !event.touches[0]) return;
+    event.preventDefault();
+    const nextY = event.touches[0].clientY;
+    setOpeningTarget(openingTarget + (openingTouchY - nextY) / 520);
+    openingTouchY = nextY;
+  }, { passive: false });
+
+  function handleOpeningKey(event) {
+    if (event.key === 'ArrowDown' || event.key === 'PageDown' || event.key === ' ') {
+      event.preventDefault();
+      setOpeningTarget(openingTarget + 0.12);
+    } else if (event.key === 'ArrowUp' || event.key === 'PageUp') {
+      event.preventDefault();
+      setOpeningTarget(openingTarget - 0.12);
+    }
+  }
+
+  addEventListener('keydown', handleOpeningKey);
+  if (openingSkip) openingSkip.tabIndex = 0;
+  openingSkip?.addEventListener('click', () => {
+    const skipAnimation = openingSequence.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 420, easing: 'ease', fill: 'forwards' });
+    skipAnimation.finished.then(finishOpening);
   });
-  openingSkip?.addEventListener('click', () => openingSequence.classList.add('is-skipped'));
 }
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
